@@ -1,0 +1,27 @@
+div.justify-stretch
+	div.flex.flex-col
+	  div.overflow-x-auto.sm:-mx-6.lg:-mx-8
+	    div.inline-block.min-w-full.py-2.sm:px-6.lg:px-8
+	      div.overflow-hidden
+	        table.min-w-full.border.text-center.text-sm.font-light.dark:border-neutral-500
+	          thead.border-b.font-medium.dark:border-neutral-500
+	            tr
+	              th.border-r.px-6.py-4.dark:border-neutral-500 #
+	              th.border-r.px-6.py-4.dark:border-neutral-500 First
+	              th.border-r.px-6.py-4.dark:border-neutral-500 Last
+	              th.border-r.px-6.py-4 Tag
+	              th.border-r.px-6.py-4 Rating
+	              th.px-6.py-4 Actions
+
+	          tbody
+	          -@players.each_with_index do |player, i| 
+	            tr.border-b.dark:border-neutral-500
+	              td.whitespace-nowrap.border-r.px-6.py-4.font-medium.dark:border-neutral-500= i + 1
+	              td.whitespace-nowrap.border-r.px-6.py-4.dark:border-neutral-500= player.name
+	              td.whitespace-nowrap.border-r.px-6.py-4.dark:border-neutral-500= player.surname
+	              td.border-r.whitespace-nowrap.px-6.py-4= player.nickname
+	              td.border-r.whitespace-nowrap.px-6.py-4= player.rating
+	              td.whitespace-nowrap.px-6.py-4
+	              	button[class="#{dark_btn}"] = link_to "Edit", edit_player_path(player)
+	              	button[class="#{dark_btn}"] = link_to "Info", player_path(player)
+	              	button[class="#{dark_btn}"] = link_to "Delete", player_path(player), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }

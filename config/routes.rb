@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   telegram_webhook TelegramWebhookController
+  resources :players
+  root to: "players#index"
 end

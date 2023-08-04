@@ -5,7 +5,7 @@ class CreateVenues < ActiveRecord::Migration[7.0]
       t.string :date
       t.string :time
       t.integer :chat_id
-      t.string :chat_name
+      t.string :chat_title
       t.integer :owner_id
 
       t.timestamps

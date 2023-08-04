@@ -45,6 +45,12 @@ gem "bootsnap", require: false
 # Telegram bot gem used for Webhooks
 gem 'telegram-bot', git: 'https://github.com/telegram-bot-rb/telegram-bot'
 
+# Different types of access to payload
+gem 'telegram-bot-types'
+
+# Slim gem for Rails
+gem 'slim'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -69,6 +75,7 @@ group :development do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'spring-commands-rspec'
+  gem 'byebug'
 end
 
 group :test do
@@ -77,3 +84,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "tailwindcss-rails", "~> 2.0"

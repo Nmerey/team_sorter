@@ -28,6 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_100933) do
     t.string "surname"
     t.string "nickname"
     t.integer "t_id"
+    t.integer "friend_id"
+    t.float "rating", default: 5.0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_01_100933) do
     t.string "date"
     t.string "time"
     t.integer "chat_id"
-    t.string "chat_name"
+    t.string "chat_title"
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
