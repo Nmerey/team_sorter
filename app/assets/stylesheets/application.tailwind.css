@@ -11,3 +11,14 @@
 }
 
 */
+
+.msg-notice {
+  @apply bg-blue-300 text-white text-center;
+}
+.msg-alert {
+  @apply bg-red-300 text-red-900 text-center;
+}
+.msg-success {
+  @apply bg-green-300 text-black text-center;
+}
+

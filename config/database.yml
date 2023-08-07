@@ -86,6 +86,9 @@ test:
 #
 production:
   <<: *default
-  database: team_sorter_production
-  username: team_sorter
-  password: <%= ENV["TEAM_SORTER_DATABASE_PASSWORD"] %>
+  encoding: utf8
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>

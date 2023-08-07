@@ -32,3 +32,8 @@
 /config/secrets.yml
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

@@ -51,6 +51,9 @@ gem 'telegram-bot-types'
 # Slim gem for Rails
 gem 'slim'
 
+# A Ruby gem to load environment variables from `.env`.
+gem 'dotenv-rails'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
