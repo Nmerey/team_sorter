@@ -1,0 +1,11 @@
+body.bg-gray-100
+  .container.mx-auto.p-8
+    h1.text-2xl.font-semibold.mb-4 Venue List
+
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
+      - @venues.each do |venue|
+        .bg-white.rounded-lg.shadow-lg.p-6
+          h2.text-lg.font-semibold.mb-2 = venue.location
+          p.text-gray-600 = "#{venue.date} at #{venue.time}"
+
+          = link_to 'View Players', players_path(venue_id: venue.id), class: 'block text-center mt-4 bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600'

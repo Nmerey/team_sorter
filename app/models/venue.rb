@@ -3,7 +3,7 @@ class Venue < ApplicationRecord
 	has_many :players, through: :games
 	
 	def list_of_players
-		self.players.map.with_index(1) { |player, index| "#{index}. #{player.name} #{player.nickname}" }.join("\n")
+		players.game_ordered.map.with_index(1) { |player, index| "#{index}. #{player.name} #{player.surname} #{player.nickname} - #{player.rating}" }.join("\n")
 	end
 
 	def markup_text

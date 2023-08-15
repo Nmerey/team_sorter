@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'admin/index'
+  get 'admin/update'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
   telegram_webhook TelegramWebhookController
   resources :players
-  root to: "players#index"
+  resources :admins, only: %i[ :index, :update]
+  resources :venues, only: [:index]
+  root to: "venues#index"
 end

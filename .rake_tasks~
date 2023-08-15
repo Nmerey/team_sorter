@@ -60,6 +60,5 @@ tmp:create
 turbo:install
 turbo:install:importmap
 turbo:install:node
-turbo:install:redis
 yarn:install
 zeitwerk:check

@@ -14,9 +14,9 @@ div.justify-stretch
 	              th.px-6.py-4 Actions
 
 	          tbody
-	          -@players.each_with_index do |player, i| 
+	          -@players.each.with_index(@players.offset + 1) do |player, i| 
 	            tr.border-b.dark:border-neutral-500
-	              td.whitespace-nowrap.border-r.px-6.py-4.font-medium.dark:border-neutral-500= i + 1
+	              td.whitespace-nowrap.border-r.px-6.py-4.font-medium.dark:border-neutral-500= i
 	              td.whitespace-nowrap.border-r.px-6.py-4.dark:border-neutral-500= player.name
 	              td.whitespace-nowrap.border-r.px-6.py-4.dark:border-neutral-500= player.surname
 	              td.border-r.whitespace-nowrap.px-6.py-4= player.nickname
@@ -25,3 +25,5 @@ div.justify-stretch
 	              	button[class="#{dark_btn}"] = link_to "Edit", edit_player_path(player)
 	              	button[class="#{dark_btn}"] = link_to "Info", player_path(player)
 	              	button[class="#{dark_btn}"] = link_to "Delete", player_path(player), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
+
+div.py-4 = will_paginate @players, page_links: false

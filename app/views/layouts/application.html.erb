@@ -12,9 +12,11 @@
 </head>
 
 <body>
-  <%= render "layouts/flash" %>
-  <main class="container mx-auto mt-28 px-5">
-    <%= yield %>
-  </main>
-</body>
-</html>
+  <body class="bg-gray-100">
+    <%= render "layouts/header" %>
+    <%= render "layouts/flash" %>
+    <main class="container mx-auto mt-5 px-5">
+      <%= yield %>
+    </main>
+  </body>
+  </html>

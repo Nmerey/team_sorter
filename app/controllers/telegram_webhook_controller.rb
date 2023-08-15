@@ -1,10 +1,7 @@
 class TelegramWebhookController < Telegram::Bot::UpdatesController
 	include Telegram::Bot::UpdatesController::MessageContext
-	before_action :set_venue, only: [:callback_query, :sort_teams]
-
-	def ping!
-		respond_with :message, text: 'pong'
-	end
+	before_action :set_venue, only: [:callback_query, :sort_teams, :change_rating!]
+	before_action :set_player, only: [:callback_query, :start!, :become_admin!, :change_rating!]
 
 	REPLY_MARKUP = {
 		inline_keyboard: [
@@ -22,9 +19,40 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 		],
 	}
 
+	def ping!
+		respond_with :message, text: 'pong'
+	end
+
+	def become_admin!(*)
+		@admin = Admin.new(player_id: @player&.id)
+
+		if @admin.save
+			respond_with :message, text: "Your request was sent!"
+		else
+			respond_with :message, text: "Already sent! Sabr ya sabr!"
+		end
+	end
+
+	def change_rating!(*data)
+		if authorized?
+			@player = @venue.players.game_ordered[data[0].to_i - 1]
+			if @player.update(rating: data[1])
+				respond_with :message, text: "#{@player.name}'s rating has been updated to #{@player.rating}"
+			else
+				respond_with :message, text: "Something went wrong!"
+			end
+		else
+			not_authorized_message
+		end
+	end
+
 	def start!(*)
-		respond_with :message, text: 'Location?'
-		save_context :get_location
+		if authorized?
+			respond_with :message, text: 'Location?'
+			save_context :get_location
+		else
+			not_authorized_message
+		end
 	end
 
 	def get_location(*location)
@@ -68,23 +96,28 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
 		when "add_friend"
 
-      session[:venue_id]  = @venue.id
-      session[:callback]  = payload['message']
-      session[:friend_id] = from['id']
+			session[:venue_id]  = @venue.id
+			session[:callback]  = payload['message']
+			session[:friend_id] = from['id']
 
 			respond_with :message, text: "Name and Rating ? (ex. Chapa 5.5)"
 			save_context :add_friend
 
 		when "remove_friend"
 
-			@player = @venue.players.where(friend_id: from['id']).last.destroy
+			@venue.players.where(friend_id: from['id']).last.destroy
 			show_edit_reply
 
 		when "sort_teams"
 
-			session[:venue_id] = @venue.id
-			respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
-			save_context :sort_teams
+			if authorized?
+				session[:venue_id] = @venue.id
+				respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
+				save_context :sort_teams
+			else
+				not_authorized_message
+			end
+
 		end
 
 		def sort_teams(*teams_data)
@@ -121,8 +154,12 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
 	private
 
-	def divide_teams(players)
-		
+	def not_authorized_message
+		respond_with :message, text: "#{@player&.name} #{@player&.surname} you are not admin! Sit down, be humble!"
+	end
+
+	def authorized?
+		@player&.admin&.accepted?
 	end
 
 	def friend_not_saved_message
@@ -135,7 +172,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
 	def finalize_venue
 		@venue = Venue.new(venue_params)
-
 
 		if @venue.save
 			session[:venue_id] = @venue.id
@@ -176,6 +212,10 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 	end
 
 	def set_venue
-		@venue ||= Venue.find_by(id: session[:venue_id]) || Venue.where(chat_title: chat['title']).last
+		@venue = Venue.find_by(id: session[:venue_id]) || Venue.where(chat_title: chat['title']).last
+	end
+
+	def set_player
+		@player = Player.find_or_create_by(t_id: from['id'])
 	end
 end

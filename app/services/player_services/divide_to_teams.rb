@@ -10,7 +10,7 @@ module PlayerServices
 		end
 
 		def call
-			@players = @venue.players.first(@players_count)
+			@players = @venue.players.game_ordered.first(@players_count)
 			team_size = @players_count / teams_count
 			avrg = @players.sum(&:rating) / teams_count
 			result = []

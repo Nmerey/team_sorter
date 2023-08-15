@@ -1,19 +1,15 @@
 class PlayersController < ApplicationController
 	before_action :set_player, only:[:edit, :show, :update]
+
 	def index
-		@players = Player.not_friends
-	end
+		if params[:venue_id]
+			venue = Venue.find(params[:venue_id])
+			players = venue.players.not_friends
+		else
+			players = Player.not_friends
+		end
 
-	def show
-		
-	end
-
-	def create
-		
-	end
-
-	def edit
-
+		@players = players.order('created_at').paginate(page: params[:page], per_page: 12)
 	end
 
 	def destroy
@@ -37,6 +33,6 @@ class PlayersController < ApplicationController
 	end
 
 	def player_params
-		params.require(:player).permit(:name, :rating, :t_id, :friend_id)
+		params.require(:player).permit(:name, :surname, :nickname, :rating, :t_id, :friend_id)
 	end
 end

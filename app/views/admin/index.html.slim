@@ -1,0 +1,15 @@
+.container.mx-auto.my-8
+  h1.text-2xl.font-semibold.mb-4 Admin Requests
+
+  .flex.flex-wrap
+    - @admin_requests.each do |admin_request|
+      .w-1/4.p-4
+        .bg-white.rounded-lg.overflow-hidden.shadow-lg
+          .text-center.py-6
+            h2.text-lg.font-semibold = " #{ admin_request.player.name } #{ admin_request.player.surname }"
+            p.text-gray-600 = "Telegram ID: #{ admin_request.player.t_id } "
+            p.text-gray-600 = "Telegram Nickname: #{ admin_request.player.nickname } "
+
+          .mt-4.flex.justify-center.space-x-4.pb-4
+            = link_to 'Accept', admin_update_path(admin_request_id: admin_request.id, accepted: true), class: 'px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'
+            = link_to 'Reject', admin_update_path(admin_request_id: admin_request.id, accepted: false), class: 'px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600'
