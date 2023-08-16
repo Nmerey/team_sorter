@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.4"
+ruby "3.1.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
@@ -92,3 +92,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.0"
+
+# https://api.telegram.org/bot1142531360:AAE8Jd2cXxpkuGHqeeWo67LueaNplBS0FWA/setWebhook?url=https://awseb-awseb-1aj96e0axmno9-116346488.eu-north-1.elb.amazonaws.com/telegram/qM26rBWUpRtzHxVkWJLaN0AmPkk
