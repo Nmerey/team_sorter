@@ -28,8 +28,8 @@
 /public/assets
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
-/config/secrets.yml
+# /config/master.key
+# /config/secrets.yml
 /app/assets/builds/*
 !/app/assets/builds/.keep
 
