@@ -86,4 +86,4 @@ test:
 #
 production:
   <<: *default
-  database: team_sorter_production
+  database: team-sorter_production
