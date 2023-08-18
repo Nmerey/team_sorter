@@ -78,9 +78,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 		case data
 		when "add"
 
-			@player = Player.find_or_create_by(t_id: from['id']) do |player|
-				player.assign_attributes(player_params)
-			end
+			set_player
 
 			@game = Game.create(player: @player, venue: @venue)
 
@@ -212,10 +210,12 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 	end
 
 	def set_venue
-		@venue = Venue.find_by(id: session[:venue_id]) || Venue.where(chat_title: chat['title']).last
+		@venue = Venue.where(chat_title: chat['title']).last
 	end
 
 	def set_player
-		@player = Player.find_or_create_by(t_id: from['id'])
+		@player = Player.find_or_create_by(t_id: from['id']) do |player|
+				player.assign_attributes(player_params)
+		end
 	end
 end
