@@ -17,10 +17,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: team_sorter
-  password: team_sorter
-  host: localhost
-  port: 5433
+  username: team-sorter
+  password: dq3c-lY)68Y8B-A5Il
+  host: fra.domcloud.id
+  port: 5432
   pool: 5
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
