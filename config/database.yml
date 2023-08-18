@@ -17,8 +17,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: team-sorter
-  password: dq3c-lY)68Y8B-A5Il
   host: fra.domcloud.id
   port: 5432
   pool: 5
@@ -87,3 +85,4 @@ test:
 production:
   <<: *default
   database: team-sorter_production
+
