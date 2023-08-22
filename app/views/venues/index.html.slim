@@ -2,7 +2,7 @@ body.bg-gray-100
   .container.mx-auto.p-8
     h1.text-2xl.font-semibold.mb-4 Venue List
 
-    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-5.gap-4
       - @venues.each do |venue|
         .bg-white.rounded-lg.shadow-lg.p-6
           h2.text-lg.font-semibold.mb-2 = venue.location
