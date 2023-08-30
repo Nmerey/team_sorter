@@ -1,12 +1,15 @@
-<nav class="bg-blue-500 p-4 text-white">
-	<div class="container mx-auto">
-		<div class="flex justify-left">
+<nav class="bg-blue-600 p-4 text-white">
+	<div class="container mx-auto px-8">
+		<div class="flex">
 			<%= link_to "Team Sorter", root_path, class: "text-xl font-semibold pr-6" %>
 			<ul class="flex space-x-4">
 				<li><%= link_to "Players", players_path %></li>
 				<li><%= link_to "Admins", admin_index_path %></li>
 				<li><%= link_to "Venues", venues_path %></li>
 			</ul>
+			<div class="flex ml-auto pr-12">
+				<%= link_to @current_player.fullname, edit_player_path(@current_player) %>
+			</div>
 		</div>
 	</div>
 </nav>

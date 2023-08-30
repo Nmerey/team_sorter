@@ -1,5 +1,7 @@
 class TelegramWebhookController < Telegram::Bot::UpdatesController
 	include Telegram::Bot::UpdatesController::MessageContext
+	include AuthHelper
+
 	before_action :set_venue, only: [:callback_query, :sort_teams, :change_rating!]
 	before_action :set_player, only: [:callback_query, :start!, :become_admin!, :change_rating!]
 
@@ -20,16 +22,20 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 	}
 
 	def ping!
-		respond_with :message, text: 'pong'
+		respond_with :message, text: "pong"
 	end
 
-	def become_admin!(*)
+	def login!
+		respond_with :message, text: "Please login through this link to access Dashboard", reply_markup: AuthHelper::LOGIN_MARKUP
+	end
+
+	def become_admin!
 		@admin = Admin.new(player_id: @player&.id)
 
 		if @admin.save
 			respond_with :message, text: "Your request was sent!"
 		else
-			respond_with :message, text: "Already sent! Sabr ya sabr!"
+			respond_with :message, text: "Already sent! Check Dashboard for access", reply_markup: AuthHelper::LOGIN_MARKUP
 		end
 	end
 
@@ -42,7 +48,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 				respond_with :message, text: "Something went wrong!"
 			end
 		else
-			not_authorized_message
 		end
 	end
 
@@ -151,14 +156,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 	end
 
 	private
-
-	def not_authorized_message
-		respond_with :message, text: "#{@player&.name} #{@player&.surname} you are not admin! Sit down, be humble!"
-	end
-
-	def authorized?
-		@player&.admin&.accepted?
-	end
 
 	def friend_not_saved_message
 		respond_with :message, text: "Friend not save! Wrong Name or Rating"

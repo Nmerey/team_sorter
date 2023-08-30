@@ -22,7 +22,7 @@ div.justify-stretch
 	              td.border-r.whitespace-nowrap.px-6.py-4= player.nickname
 	              td.border-r.whitespace-nowrap.px-6.py-4= player.rating
 	              td.whitespace-nowrap.px-6.py-4
-	              	button[class="#{dark_btn}"] = link_to "Edit", edit_player_path(player)
+	              	button[class="#{dark_btn}"] = link_to "Edit", edit_player_path(id: player.id, venue_id: params[:venue_id])
 	              	button[class="#{dark_btn}"] = link_to "Info", player_path(player)
 	              	button[class="#{dark_btn}"] = link_to "Delete", player_path(player), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 

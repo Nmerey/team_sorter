@@ -10,4 +10,12 @@ class Player < ApplicationRecord
 	def admin?
 		admin.present?
 	end
+
+	def fullname
+		"#{self.name} #{self.surname}"
+	end
+
+	def full_tag
+		"#{self.name} #{self.surname} - @#{self.nickname}"
+	end
 end

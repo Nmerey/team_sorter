@@ -10,13 +10,15 @@
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
 </head>
-
-<body>
-  <body class="bg-gray-100">
+<body class="bg-gray-100">
+  <% if @current_player %>
     <%= render "layouts/header" %>
     <%= render "layouts/flash" %>
     <main class="container mx-auto mt-5 px-5">
       <%= yield %>
     </main>
-  </body>
-  </html>
+  <% else %>
+    <%= render "layouts/registration" %>
+  <% end -%>
+</body>
+</html>

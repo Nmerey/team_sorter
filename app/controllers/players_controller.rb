@@ -22,7 +22,7 @@ class PlayersController < ApplicationController
 	def update
 		if @player.update(player_params)
 			flash[:success] = "Player has been updated"
-			redirect_to players_path
+			redirect_to players_path(venue_id: params[:venue_id])
 		end
 	end
 

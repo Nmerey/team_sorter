@@ -43,7 +43,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 
 # Telegram bot gem used for Webhooks
-gem 'telegram-bot', git: 'https://github.com/telegram-bot-rb/telegram-bot'
+gem 'telegram-bot', git: 'https://github.com/Nmerey/telegram-bot'
 
 # Different types of access to payload
 gem 'telegram-bot-types'

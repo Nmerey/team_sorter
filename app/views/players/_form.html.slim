@@ -2,9 +2,9 @@ section.bg-gray-100
   .mx-auto.max-w-screen-xl.px-4.py-16.sm:px-6.lg:px-8
     .grid.grid-cols-1.gap-x-16.gap-y-8.lg:grid-cols-2
       .rounded-lg.bg-white.p-8.shadow-lg
-        h2.text-2xl.font-bold.mb-4 Edit User
+        h2.text-2xl.font-bold.mb-4 Edit Player
 
-        = form_with model: player,url: player_path(player), method: :patch, local: true, html: { class: "space-y-4" } do |f|
+        = form_with model: player,url: player_path(id: player.id, venue_id: params[:venue_id]), method: :patch, local: true, html: { class: "space-y-4" } do |f|
           div.grid.grid-cols-2.gap-4
             div
               = f.label :name, class: "block font-medium text-gray-700"
@@ -14,11 +14,15 @@ section.bg-gray-100
               = f.label :surname, class: "block font-medium text-gray-700"
               = f.text_field :surname, class: "w-full rounded-lg border-gray-200 p-3 text-sm"
 
-          div
-            = f.label :rating, class: "block font-medium text-gray-700"
-            = f.number_field :rating, step: 0.1, class: "w-full rounded-lg border-gray-200 p-3 text-sm"
+          div.grid.grid-cols-2.gap-4
+            div
+              = f.label :rating, class: "block font-medium text-gray-700"
+              = f.number_field :rating, step: 0.1, class: "w-full rounded-lg border-gray-200 p-3 text-sm"
+            div
+              = f.label :tag, class: "block font-medium text-gray-700"
+              = f.text_field :nickname, class: "w-full rounded-lg border-gray-200 p-3 text-sm"
 
           div.mt-4
-            = f.submit "Save Changes", class: "inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white"
+            = f.submit "Save Changes", class: "inline-block w-full rounded-lg bg-blue-600 px-5 py-3 font-medium text-white hover:bg-blue-500"
       .rounded-lg.bg-white.p-8.shadow-lg
         h2.text-2xl.font-bold.mb-4 Group Info

@@ -32,6 +32,8 @@
 # /config/secrets.yml
 /app/assets/builds/*
 !/app/assets/builds/.keep
+/localhost.key
+/localhost.crt
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

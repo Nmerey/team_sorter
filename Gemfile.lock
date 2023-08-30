@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/telegram-bot-rb/telegram-bot
+  remote: https://github.com/Nmerey/telegram-bot
   revision: af8596693982b1db4f000cda595c4a5234c5e6fc
   specs:
     telegram-bot (0.15.7)

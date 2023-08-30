@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :players
   resources :admins, only: %i[ :index, :update]
   resources :venues, only: [:index]
-  root to: "venues#index"
+  root to: "auth#show"
 end
