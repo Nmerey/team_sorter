@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-	include AuthHelper
+  include AuthHelper
 
-	before_action :set_current_player
+  before_action :set_current_player
 
-	add_flash_types :success, :warning, :info
+  add_flash_types :success, :warning, :info
 end

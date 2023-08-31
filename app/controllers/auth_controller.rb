@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 class AuthController < ApplicationController
   skip_before_action :set_current_player
 
   def show
     find_or_create_player
     return unless @current_player
+
     redirect_to venues_path
   end
 
@@ -11,8 +14,9 @@ class AuthController < ApplicationController
 
   def find_or_create_player
     return unless check_auth?(telegram_params)
+
     @current_player = Player.find_or_create_by(t_id: params[:id]) do |player|
-        player.assign_attributes(player_params)
+      player.assign_attributes(player_params)
     end
     session[:telegram_id] = @current_player.t_id
   end

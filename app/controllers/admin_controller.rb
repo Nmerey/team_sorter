@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminController < ApplicationController
   def index
     @admin_requests = Admin.pending.includes(:player)
@@ -8,10 +10,10 @@ class AdminController < ApplicationController
 
     if params[:accepted]
       @admin_request.accepted!
-      flash[:success] = "Request accepted"
+      flash[:success] = 'Request accepted'
     else
       @admin_request.rejected!
-      flash[:alert] = "Request rejected"
+      flash[:alert] = 'Request rejected'
     end
 
     redirect_to admin_index_path

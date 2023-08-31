@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'admin/index'
   get 'admin/update'
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   telegram_webhook TelegramWebhookController
   resources :players
-  resources :admins, only: %i[ :index, :update]
+  resources :admins, only: %i[index update]
   resources :venues, only: [:index]
-  root to: "auth#show"
+  root to: 'auth#show'
 end
