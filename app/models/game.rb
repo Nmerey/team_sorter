@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Game model class
 class Game < ApplicationRecord
   belongs_to :venue
   belongs_to :player

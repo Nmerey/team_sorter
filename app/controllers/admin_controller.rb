@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller class for Admin requests
 class AdminController < ApplicationController
   def index
     @admin_requests = Admin.pending.includes(:player)

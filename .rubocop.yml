@@ -1,0 +1,37 @@
+# Exceptions
+Style/Documentation:
+  Exclude:
+    - db/migrate/*.rb
+    - config/*.rb
+    - test/*.rb
+
+Layout/LineLength:
+  Exclude:
+    - app/helper/tailwind_helper.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - app/controllers/telegram_webhook_controller.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - app/controllers/telegram_webhook_controller.rb
+
+Lint/NestedMethodDefinition:
+  Exclude:
+    - app/controllers/telegram_webhook_controller.rb
+
+Layout/LineLength:
+  Exclude:
+    - app/helpers/tailwind_helper.rb
+
+Metrics/AbcSize:
+  Exclude:
+    - app/services/player_services/divide_to_teams.rb
+
+# Custom rules
+Metrics/BlockLength:
+  Max: 40
+
+Metrics/MethodLength:
+  Max: 30

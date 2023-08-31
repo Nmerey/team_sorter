@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Includes module AuthHelper to set current player.
 class ApplicationController < ActionController::Base
   include AuthHelper
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Venue model class
 class Venue < ApplicationRecord
   has_many :games, dependent: :destroy
   has_many :players, through: :games

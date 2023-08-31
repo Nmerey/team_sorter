@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class for checking Authentication of the player using Telegram App hash token.
 class AuthController < ApplicationController
   skip_before_action :set_current_player
 

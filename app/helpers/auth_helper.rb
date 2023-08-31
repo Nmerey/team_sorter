@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Helper module for all Authentication and Authorization actions. `check_auth?` checks Telegram
+# parameters by comparing params HMAC_SHA256 and given hash.
 module AuthHelper
   LOGIN_MARKUP = {
     inline_keyboard: [

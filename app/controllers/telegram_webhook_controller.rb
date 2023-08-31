@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Controller class for interactions between Telegram bot and the server using Webhook.
+# Telegram commands ends with bang(!)
 class TelegramWebhookController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include AuthHelper
@@ -83,6 +85,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     finalize_venue
   end
 
+# rubocop:disable all
   def callback_query(data)
     case data
     when 'add'
@@ -145,6 +148,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
       respond_with :message, text: list_of_teams
     end
+# rubocop:enable all
 
     def add_friend(*friend_data)
       @venue = Venue.find(session[:venue_id])

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Admin model class. One-to-one relation with Player class. Store admin status as enum.
 class Admin < ApplicationRecord
   has_many :groups
   belongs_to :player

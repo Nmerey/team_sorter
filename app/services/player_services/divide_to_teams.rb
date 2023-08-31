@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module PlayerServices
+  # Service class object for dividing into balanced teams.
   class DivideToTeams
     attr_reader :venue, :teams_count, :players_count
 

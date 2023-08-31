@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller class for players. Only shows associated players to the logged current player.
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[edit show update]
 
