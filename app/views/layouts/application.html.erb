@@ -11,7 +11,7 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="bg-gray-100">
-  <% if @current_player.admin? %>
+  <% if @current_player&.admin? %>
     <%= render "layouts/header" %>
     <%= render "layouts/flash" %>
     <main class="container mx-auto mt-5 px-5">
