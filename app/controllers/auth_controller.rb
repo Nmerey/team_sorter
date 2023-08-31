@@ -6,7 +6,7 @@ class AuthController < ApplicationController
 
   def show
     find_or_create_player
-    return unless @current_player
+    return unless @current_player&.admin?
 
     redirect_to venues_path
   end
