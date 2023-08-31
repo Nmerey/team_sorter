@@ -3,7 +3,7 @@ module AuthHelper
 	LOGIN_MARKUP = {
 		inline_keyboard: [
 			[
-				{ text: 'Login', login_url: { url: "https://lvh.me:3000/" } }
+				{ text: 'Login', login_url: { url: "https://#{ENV['WEBHOOK_URL']}" } }
 			]
 		],
 	}
