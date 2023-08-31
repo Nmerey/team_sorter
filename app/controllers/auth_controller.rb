@@ -6,9 +6,13 @@ class AuthController < ApplicationController
 
   def show
     find_or_create_player
-    return unless @current_player&.admin?
-
-    redirect_to venues_path
+    
+    if @current_player&.admin?
+      redirect_to venues_path
+    else
+      flash[:notice] = "#{@current_player.fullname} is not Admin! /become_admin in bot chat!"
+      render :show
+    end
   end
 
   private

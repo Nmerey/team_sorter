@@ -11,13 +11,14 @@
   <%= javascript_importmap_tags %>
 </head>
 <body class="bg-gray-100">
-  <% if @current_player %>
+  <% if @current_player.admin? %>
     <%= render "layouts/header" %>
     <%= render "layouts/flash" %>
     <main class="container mx-auto mt-5 px-5">
       <%= yield %>
     </main>
   <% else %>
+    <%= render "layouts/flash" %>
     <%= render "layouts/registration" %>
   <% end -%>
 </body>
