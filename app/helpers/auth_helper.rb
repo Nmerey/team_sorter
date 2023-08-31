@@ -19,7 +19,7 @@ module AuthHelper
     end
   end
 
-  def not_authorized_messagehyh
+  def not_authorized_message
     respond_with :message, text: "#{@player&.name} #{@player&.surname} /become_admin to use the bot!"
   end
 
