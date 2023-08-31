@@ -34,6 +34,9 @@
 !/app/assets/builds/.keep
 /localhost.key
 /localhost.crt
+.byebug_history
+.rake_tasks~
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

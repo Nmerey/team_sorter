@@ -26,7 +26,7 @@ module AuthHelper
 
 	def check_auth?(auth_data)
 		check_data = auth_data.except('hash').sort.to_h.map { |k,v| "#{k}=#{v}" }.join("\n")
-		hashed_token = Digest::SHA256.digest(ENV['BOT_TOKEN_PROD'])
+		hashed_token = Digest::SHA256.digest(ENV['BOT_TOKEN_DEV'])
 		telegram_hash = OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha256'), hashed_token, check_data)
 		auth_data['hash'] == telegram_hash
 	end

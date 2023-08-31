@@ -1,8 +1,9 @@
 class AuthController < ApplicationController
-  skip_before_action :set_current_player, unless: @current_player
+  skip_before_action :set_current_player
 
   def show
-    find_or_create_player unless @current_player
+    find_or_create_player
+    return unless @current_player
     redirect_to venues_path
   end
 
