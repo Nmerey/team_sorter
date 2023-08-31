@@ -1,5 +1,5 @@
 class VenuesController < ApplicationController
   def index
-    @venues = Venue.order(created_at: :desc)
+    @venues = @current_player.venues.order(created_at: :desc)
   end
 end

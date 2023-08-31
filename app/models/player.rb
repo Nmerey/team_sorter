@@ -11,6 +11,10 @@ class Player < ApplicationRecord
 		admin.present?
 	end
 
+	def self.played_together_with(current_player)
+		where(id: current_player.venues.joins(:players).pluck('players.id'))
+	end
+
 	def fullname
 		"#{self.name} #{self.surname}"
 	end

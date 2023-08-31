@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
 			venue = Venue.find(params[:venue_id])
 			players = venue.players.not_friends
 		else
-			players = Player.not_friends
+			players = Player.played_together_with(@current_player).not_friends
 		end
 
 		@players = players.order('created_at').paginate(page: params[:page], per_page: 12)
