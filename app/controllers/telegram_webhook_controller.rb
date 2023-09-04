@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 # Controller class for interactions between Telegram bot and the server using Webhook.
 # Telegram commands ends with bang(!)

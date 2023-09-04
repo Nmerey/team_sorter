@@ -1,7 +1,7 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 module PlayerServices
-  # Service class object for dividing into balanced teams.
+  # Service Object to divide players to balanced teams.
   class DivideToTeams
     attr_reader :venue, :teams_count, :players_count
 
@@ -12,19 +12,19 @@ module PlayerServices
     end
 
     def call
-      @players = @venue.players.game_ordered.first(@players_count)
+      players = @venue.players.game_ordered.first(players_count)
       team_size = @players_count / teams_count
-      avrg = @players.sum(&:rating) / teams_count
+      avrg = players.sum(&:rating) / teams_count
       result = []
 
-      until @players.blank?
-        combinations = find_combinations(@players, team_size)
+      until players.blank?
+        combinations = find_combinations(players, team_size)
         # Finds perfectly balanced team and pops it from players list
         valid_team = find_random_valid_team(combinations, avrg)
-        valid_team = @players if @players.count == team_size
+        valid_team = players if players.count == team_size
         # Gives second best option if no perfectly balanced team
         valid_team = find_best_diff_team(combinations, avrg) if valid_team.blank?
-        @players -= valid_team
+        players -= valid_team
         result << valid_team
       end
 
