@@ -87,6 +87,7 @@ group :development do
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'factory_bot_rails'
 end
 
 group :test do
@@ -94,6 +95,8 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 gem 'tailwindcss-rails', '~> 2.0'

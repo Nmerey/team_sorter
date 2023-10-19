@@ -27,6 +27,10 @@ module AuthHelper
     @player&.admin&.accepted?
   end
 
+  def set_authorization
+    raise not_authorized_message unless authorized?
+  end
+
   def check_auth?(auth_data)
     check_data = auth_data.except('hash').sort.to_h.map { |k, v| "#{k}=#{v}" }.join("\n")
     hashed_token = Digest::SHA256.digest(ENV['BOT_TOKEN'])
