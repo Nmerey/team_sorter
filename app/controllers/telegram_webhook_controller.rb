@@ -15,6 +15,16 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     respond_with :message, text: 'pong'
   end
 
+  def test!
+    respond_with :message, text: 'give your text'
+    byebug
+    save_context :test_context
+  end
+
+  def test_context(text)
+    respond_with :message, text: "#{text}"
+  end
+
   def login!
     respond_with :message, text: 'Please login through this link to access Dashboard',
     reply_markup: AuthHelper::LOGIN_MARKUP
@@ -66,7 +76,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
       respond_with :message, text: 'Something went wrong!'
     end
   end
-  
+
   # rubocop:disable all
   def callback_query(data)
     send(data)
