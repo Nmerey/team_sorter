@@ -96,7 +96,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     end
   end
 
-  def sort_teams(*teams_data)
+  def divide_teams(*teams_data)
     teams_count   = teams_data[0].to_i
     players_count = teams_data[1].to_i
 
@@ -146,7 +146,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     set_authorization
     session[:venue_id] = @venue.id
     respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
-    save_context :sort_teams
+    save_context :divide_teams
   end
   # rubocop:enable all
 
