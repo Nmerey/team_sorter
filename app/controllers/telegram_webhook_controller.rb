@@ -7,7 +7,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   include TelegramWebhookHelper
   include AuthHelper
 
-  before_action :set_venue, only: %i[callback_query sort_teams change_rating!]
+  before_action :set_venue, only: %i[callback_query divide_teams change_rating!]
   before_action :set_player, only: %i[callback_query start! become_admin! change_rating!]
   before_action :set_authorization, only: %i[change_rating! start!]
 

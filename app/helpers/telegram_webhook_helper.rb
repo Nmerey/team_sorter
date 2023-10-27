@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 # Helper module for TelegramWebhookController Class
 module TelegramWebhookHelper
