@@ -83,6 +83,15 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     show_edit_reply
   end
 
+  def add_friend
+    session[:venue_id]  = @venue.id
+    session[:callback]  = payload['messfage']
+    session[:friend_id] = from['id']
+
+    respond_with :message, text: 'Name and Rating ? (ex. Chapa 5.5)'
+    save_context :create_friend
+  end
+
   def create_friend(*friend_data)
     @venue              = Venue.find(session[:venue_id])
     player              = Player.new(format_friend_params(friend_data))
@@ -94,6 +103,13 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     else
       friend_not_saved_message
     end
+  end
+
+  def sort_teams
+    set_authorization
+    session[:venue_id] = @venue.id
+    respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
+    save_context :divide_teams
   end
 
   def divide_teams(*teams_data)
@@ -129,25 +145,10 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     game.destroy
   end
 
-  def add_friend
-    session[:venue_id]  = @venue.id
-    session[:callback]  = payload['message']
-    session[:friend_id] = from['id']
-
-    respond_with :message, text: 'Name and Rating ? (ex. Chapa 5.5)'
-    save_context :create_friend
-  end
-
   def remove_friend
     @venue.players.where(friend_id: from['id']).last.destroy
   end
 
-  def sort_teams
-    set_authorization
-    session[:venue_id] = @venue.id
-    respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
-    save_context :divide_teams
-  end
   # rubocop:enable all
 
   def finalize_venue
