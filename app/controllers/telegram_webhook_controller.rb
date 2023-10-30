@@ -2,6 +2,7 @@
 
 # Controller class for interactions between Telegram bot and the server using Webhook.
 # Telegram commands ends with bang(!)
+
 class TelegramWebhookController < Telegram::Bot::UpdatesController
   include ValidationHandler
   include TelegramWebhookHelper
