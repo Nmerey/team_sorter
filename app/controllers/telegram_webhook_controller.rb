@@ -3,26 +3,18 @@
 # Controller class for interactions between Telegram bot and the server using Webhook.
 # Telegram commands ends with bang(!)
 class TelegramWebhookController < Telegram::Bot::UpdatesController
-  include Telegram::Bot::UpdatesController::MessageContext
+  include ValidationHandler
   include TelegramWebhookHelper
   include AuthHelper
+  include Telegram::Bot::UpdatesController::MessageContext
+  
 
   before_action :set_venue, only: %i[callback_query divide_teams change_rating!]
   before_action :set_player, only: %i[callback_query start! become_admin! change_rating!]
-  before_action :set_authorization, only: %i[change_rating! start!]
+  before_action :set_authorization, only: %i[change_rating! start! sort_teams]
 
   def ping!
     respond_with :message, text: 'pong'
-  end
-
-  def test!
-    respond_with :message, text: 'give your text'
-    byebug
-    save_context :test_context
-  end
-
-  def test_context(text)
-    respond_with :message, text: "#{text}"
   end
 
   def login!
@@ -53,6 +45,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def get_date(date)
+    check_date(date)
     session[:date] = formatted_date(date)
 
     respond_with :message, text: 'Time? (ex. 19.00)'
@@ -68,6 +61,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     position_on_list  = data[0].to_i - 1
     rating            = data[1]
     player            = @venue.players.game_ordered[position_on_list]
+
+    check_change_rating_args(rating: rating, player: player)
 
     if player.update(rating: rating)
       respond_with :message, text: "#{player.name}'s rating has been updated to #{player.rating}"
@@ -85,7 +80,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
   def add_friend
     session[:venue_id]  = @venue.id
-    session[:callback]  = payload['messfage']
+    session[:callback]  = payload['message']
     session[:friend_id] = from['id']
 
     respond_with :message, text: 'Name and Rating ? (ex. Chapa 5.5)'
@@ -93,6 +88,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def create_friend(*friend_data)
+    check_friend_args(friend_data)
+
     @venue              = Venue.find(session[:venue_id])
     player              = Player.new(format_friend_params(friend_data))
     payload['message']  = session[:callback]
@@ -106,8 +103,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def sort_teams
-    set_authorization
-    session[:venue_id] = @venue.id
     respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
     save_context :divide_teams
   end
@@ -115,8 +110,9 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   def divide_teams(*teams_data)
     teams_count   = teams_data[0].to_i
     players_count = teams_data[1].to_i
+    total_players = @venue.players.count
 
-    return answer_callback_query('Not enough players!') unless @venue.players.count >= players_count
+    check_division_args(teams_count, players_count, total_players)
 
     sorted_teams = PlayerServices::DivideToTeams.new(@venue, teams_count, players_count).call
 
