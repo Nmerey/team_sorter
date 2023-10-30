@@ -17,6 +17,7 @@ class AdminController < ApplicationController
       flash[:alert] = 'Request rejected'
     end
 
+    # SendAdminRequestNotification.new(@admin_request).call
     redirect_to admin_index_path
   end
 end
