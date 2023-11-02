@@ -63,7 +63,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     rating            = data[1]
     player            = @venue.players.game_ordered[position_on_list]
 
-    check_change_rating_args(rating: rating, player: player)
+    check_change_rating_args(rating, player)
 
     if player.update(rating: rating)
       respond_with :message, text: "#{player.name}'s rating has been updated to #{player.rating}"

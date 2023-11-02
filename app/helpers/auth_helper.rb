@@ -24,11 +24,12 @@ module AuthHelper
   end
 
   def authorized?
-    @player&.admin&.accepted?
+    @player&.admin?
   end
 
   def set_authorization
     raise not_authorized_message unless authorized?
+    return
   end
 
   def check_auth?(auth_data)
