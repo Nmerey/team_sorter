@@ -17,7 +17,7 @@ class Player < ApplicationRecord
   end
 
   def admin?
-    admin.accepted? || admin.sadmin?
+    admin&.accepted? || admin&.sadmin?
   end
 
   def fullname
