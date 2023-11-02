@@ -67,7 +67,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
     if player.update(rating: rating)
       respond_with :message, text: "#{player.name}'s rating has been updated to #{player.rating}"
-      show_edit_reply
     else
       respond_with :message, text: 'Something went wrong!'
     end
