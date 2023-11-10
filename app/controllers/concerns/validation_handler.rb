@@ -23,7 +23,7 @@ module ValidationHandler extend ActiveSupport::Concern
 
 		def check_division_args(teams_count, players_count, total_players)
 			raise wrong_argument_error unless (players_count % teams_count) == 0
-			raise wrong_argument_error unless players_count < total_players
+			raise wrong_argument_error unless players_count =< total_players
 		end
 
 		def something_went_wrong
