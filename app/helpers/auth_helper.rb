@@ -28,8 +28,10 @@ module AuthHelper
   end
 
   def set_authorization
-    raise not_authorized_message unless authorized?
-    return
+    unless authorized?
+      not_authorized_message
+      raise ActiveJob::DeserializationError
+    end
   end
 
   def check_auth?(auth_data)
