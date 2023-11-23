@@ -3,12 +3,18 @@ module ValidationHandler extend ActiveSupport::Concern
 
 		def check_date(date)
 			pattern =  /^\d{2}\.\d{2}$/
-			return wrong_argument_error unless !!(date =~ pattern)
+			unless !!(date =~ pattern)
+				wrong_argument_error
+				raise ActiveJob::DeserializationError
+			end
 		end
 
 		def check_change_rating_args(rating, player)
 			check_rating(rating)
-			return wrong_argument_error unless player
+			unless player
+				wrong_argument_error
+				raise ActiveJob::DeserializationError
+			end
 		end
 
 		def check_friend_args(friend_data)
@@ -18,12 +24,17 @@ module ValidationHandler extend ActiveSupport::Concern
 
 		def check_rating(rating)
 			pattern = /^(10(\.0)?|\d(\.\d)?)$/ # Matches float number from 0 to 10.0
-			return wrong_argument_error unless !!(rating =~ pattern)
+			unless !!(rating =~ pattern)
+				wrong_argument_error
+				raise ActiveJob::DeserializationError
+			end
 		end
 
 		def check_division_args(teams_count, players_count, total_players)
-			return wrong_argument_error unless (players_count % teams_count) == 0
-			return wrong_argument_error unless players_count <= total_players
+			unless (players_count % teams_count) == 0 && players_count <= total_players
+				wrong_argument_error
+				raise ActiveJob::DeserializationError
+			end
 		end
 
 		def something_went_wrong
