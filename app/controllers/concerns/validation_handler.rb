@@ -31,6 +31,7 @@ module ValidationHandler extend ActiveSupport::Concern
 		end
 
 		def wrong_argument_error
+			payload['text'] = nil
 			respond_with :message, text: "Wrong Arguments"
 		end
 	end
