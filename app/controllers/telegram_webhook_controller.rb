@@ -63,7 +63,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     rating            = data[1]
     player            = @venue.players.game_ordered[position_on_list]
 
-    check_change_rating_args(rating, player)
+    # check_change_rating_args(rating, player)
 
     if player.update(rating: rating)
       respond_with :message, text: "#{player.name}'s rating has been updated to #{player.rating}"
@@ -88,7 +88,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def create_friend(*friend_data)
-    check_friend_args(friend_data)
+    # check_friend_args(friend_data)
 
     @venue              = Venue.find(session[:venue_id])
     player              = Player.new(format_friend_params(friend_data))
@@ -112,7 +112,7 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     players_count = teams_data[1].to_i
     total_players = @venue.players.count
 
-    check_division_args(teams_count, players_count, total_players)
+    # check_division_args(teams_count, players_count, total_players)
 
     sorted_teams = PlayerServices::DivideToTeams.new(@venue, teams_count, players_count).call
 
