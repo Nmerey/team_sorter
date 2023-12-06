@@ -17,8 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: team_sorter
-  password: team_sorter
+  username: <%= ENV.fetch('DEV_DB_USERNAME') %>
+  password: <%= ENV.fetch('DEV_DB_PASSWORD') %>
   host: localhost
   port: 5432
   # For details on connection pooling, see Rails configuration guide

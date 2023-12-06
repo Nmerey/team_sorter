@@ -30,7 +30,6 @@ module AuthHelper
   def set_authorization
     unless authorized?
       not_authorized_message
-      raise ActiveJob::DeserializationError
     end
   end
 

@@ -91,6 +91,8 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    dockerfile-rails (1.5.12)
+      rails (>= 3.0.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -166,6 +168,8 @@ GEM
     nio4r (2.5.9)
     nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.3)
@@ -253,6 +257,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.15.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.15.0)
+    sentry-ruby (5.15.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     slim (5.1.1)
       temple (~> 0.10.0)
       tilt (>= 2.1.0)
@@ -269,6 +278,8 @@ GEM
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.30)
+      railties (>= 6.0.0)
+    tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
     telegram-bot (0.15.7)
       actionpack (>= 4.0, < 7.1)
@@ -307,12 +318,14 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap
   byebug
   capybara
   debug
+  dockerfile-rails (>= 1.5)
   dotenv-rails
   factory_bot_rails
   faker
@@ -325,6 +338,8 @@ DEPENDENCIES
   rspec-rails
   rubocop
   selenium-webdriver
+  sentry-rails (~> 5.15)
+  sentry-ruby (~> 5.15)
   slim
   spring-commands-rspec
   sprockets-rails
