@@ -106,6 +106,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def sort_teams
+    return not_authorized_message unless authorized?
+    
     respond_with :message, text: 'Number of Teams and Players (ex. 3 15)'
     save_context :divide_teams
   end
