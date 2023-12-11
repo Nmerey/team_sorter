@@ -29,7 +29,7 @@ module AuthHelper
 
   def set_authorization
     unless authorized?
-      not_authorized_message
+      raise not_authorized_message rescue StandartError
     end
   end
 
