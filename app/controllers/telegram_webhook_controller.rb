@@ -12,7 +12,6 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
   before_action :set_venue, only: %i[callback_query divide_teams change_rating!]
   before_action :set_player, only: %i[callback_query start! become_admin! change_rating!]
-  before_action :set_authorization, only: %i[change_rating! start! sort_teams]
 
   def ping!
     respond_with :message, text: 'pong'
@@ -34,6 +33,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
   
   def start!
+    return not_authorized_message unless authorized?
+
     respond_with :message, text: 'Location?'
     save_context :get_location
   end
@@ -59,6 +60,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def change_rating!(*data)
+    return not_authorized_message unless authorized?
+
     position_on_list  = data[0].to_i - 1
     rating            = data[1]
     player            = @venue.players.game_ordered[position_on_list]
