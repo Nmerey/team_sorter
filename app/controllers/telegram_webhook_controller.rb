@@ -144,7 +144,13 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   def remove_player
     player  = Player.find_by(t_id: from['id'])
     game    = Game.find_by(venue: @venue, player: @player)
-    game.destroy
+    check_leaving_time if game.destroy
+  end
+
+  def check_leaving_time
+    if Time.now.strftime('%A %d.%m') == @venue.date
+      respond_with :message, text: "#{@player.full_tag} left the list!"
+    end
   end
 
   def remove_friend
