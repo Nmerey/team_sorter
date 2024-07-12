@@ -25,6 +25,6 @@ class Player < ApplicationRecord
   end
 
   def full_tag
-    "#{name} #{surname} - @#{nickname}"
+    "#{name} #{surname} - #{nickname}"
   end
 end
