@@ -62,6 +62,8 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
 
   def change_rating!(*data)
     return not_authorized_message unless authorized?
+    p data
+    return wrong_argument_error unless data.present?
 
     position_on_list  = data[0].to_i - 1
     rating            = data[1]
