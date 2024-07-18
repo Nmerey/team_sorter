@@ -64,6 +64,10 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
     return not_authorized_message unless authorized?
     return wrong_argument_error unless valid_rating_data?(data)
 
+    position_on_list  = data[0].to_i - 1
+    rating            = data[1]
+    player            = @venue.players.game_ordered[position_on_list]
+
     if player.update(rating: rating)
       respond_with :message, text: "#{player.name}'s rating has been updated to #{player.rating}"
     else
