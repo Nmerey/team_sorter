@@ -1,6 +1,19 @@
 module ValidationHandler extend ActiveSupport::Concern
 	included do
 
+		def valid_rating_data?(data)
+			return false unless data.present?
+
+			rating = is_valid_rating?(data[1])
+			player_index = is_valid_player_index?(data[0].to_i - 1)
+
+			rating && player_index
+		end
+
+		def is_valid_player_index?(index)
+			index <= @venue.players.count
+		end
+
 		def is_valid_date?(date)
 			pattern =  /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])$/
 			pattern.match?(date)
