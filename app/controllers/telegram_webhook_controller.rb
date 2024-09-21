@@ -141,14 +141,30 @@ class TelegramWebhookController < Telegram::Bot::UpdatesController
   end
 
   def remove_player
-    player  = Player.find_by(t_id: from['id'])
-    game    = Game.find_by(venue: @venue, player: @player)
-    check_leaving_time if game.destroy
+    player = Player.find_by(t_id: from['id'])
+    game = Game.find_by(venue: @venue, player: player)
+  
+    if game&.destroy
+      check_leaving_time(player)
+      notify_player_entering_game(player)
+    end
   end
 
-  def check_leaving_time
+  def check_leaving_time(player)
     if Time.now.strftime('%A %d.%m') == @venue.date
-      respond_with :message, text: "#{@player.full_tag} left the list!"
+      total_players = @venue.players.count
+      respond_with :message, text: "#{player.full_tag} left the list! Total players: #{total_players}"
+    end
+  end
+
+  def notify_player_entering_game(removed_player)
+    players = @venue.players.game_ordered
+    if players.count >= 18
+      player_position = players.index { |p| p.id == removed_player.id }
+      if player_position && player_position < 18
+        new_active_player = players[17]  # The 18th player (index 17) is now in the game
+        respond_with :message, text: "#{new_active_player.full_tag} You are in the game!"
+      end
     end
   end
 
